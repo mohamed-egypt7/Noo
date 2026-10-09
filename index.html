@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hi Rovan  💕</title>
+    <title>Hi Rovan 💕</title>
+    
+    <!-- كود إثبات ملكية وإعلانات جوجل أدسنس -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7477909490779964" crossorigin="anonymous"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Caveat:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -23,6 +27,31 @@
             justify-content: center;
             align-items: center;
             direction: rtl;
+            position: relative;
+        }
+
+        /* إعلانات الجانبين (تظهر في الشاشات الواسعة مثل الكمبيوتر وتختفي على الهواتف) */
+        .side-ad {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 160px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px dashed #ff80ab;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .left-ad { left: 20px; }
+        .right-ad { right: 20px; }
+
+        @media (max-width: 1200px) {
+            .side-ad { display: none; } /* إخفاء إعلانات الجانبين على الموبايل والشاشات الصغيرة تلقائياً */
         }
 
         .container {
@@ -31,6 +60,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            z-index: 10;
         }
 
         .card {
@@ -206,6 +236,16 @@
 </head>
 <body>
 
+    <!-- إعلان الجانب الأيمن (شاشات واسعة) -->
+    <div class="side-ad right-ad">
+        <span style="color: #d81b60; font-size: 12px; font-weight: bold; text-align: center;">إعلان جانبي</span>
+    </div>
+
+    <!-- إعلان الجانب الأيسر (شاشات واسعة) -->
+    <div class="side-ad left-ad">
+        <span style="color: #d81b60; font-size: 12px; font-weight: bold; text-align: center;">إعلان جانبي</span>
+    </div>
+
     <div class="container">
 
         <!-- شاشة تسجيل الدخول -->
@@ -246,7 +286,7 @@
                 </div>
             </div>
 
-            <!-- معرض الصور (محدث ليشمل الـ 5 صور بالظبط) -->
+            <!-- معرض الصور (5 صور) -->
             <div class="card">
                 <h1 class="cursive-title">Our Beautiful Memories</h1>
                 <div class="gallery-container">
@@ -269,7 +309,7 @@
                 <div style="font-size:13px; color:#e91e63; margin-top:8px; font-weight:bold;">👈 اسحب للتبديل أو اضغط للتكبير 👉</div>
             </div>
 
-            <!-- قسم الفيديو (يبدأ من الثانية 40) -->
+            <!-- قسم الفيديو -->
             <div class="card" id="songCard">
                 <h1 class="cursive-title">Our Favorite Song</h1>
                 <p style="color: #d81b60; font-weight: bold; margin-bottom: 5px;">🎵 اللحظة المميزة 🎵</p>
