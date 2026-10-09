@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Rovan 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Caveat:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body {
+            background-color: #ff608c;
+            background-image: 
+                radial-gradient(#ff85a1 1.5px, transparent 1.5px),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24' fill='%23ffffff22'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-size: 30px 30px, 120px 120px;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            direction: rtl;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 390px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 25px 20px;
+            box-shadow: 0 12px 30px rgba(216, 27, 96, 0.25);
+            text-align: center;
+            border: 3px solid #ffffff;
+            position: relative;
+            width: 100%;
+        }
+
+        .cursive-title {
+            font-family: 'Great Vibes', 'Caveat', cursive;
+            font-size: 46px;
+            color: #d81b60;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: #e91e63;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            text-align: right;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #d81b60;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 13px;
+            border: 2px solid #ff80ab;
+            border-radius: 16px;
+            outline: none;
+            font-size: 16px;
+            text-align: right;
+            background: #fff5f8;
+            color: #333;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 90px;
+        }
+
+        .btn-pink {
+            background: linear-gradient(135deg, #e91e63, #ff4081);
+            color: white;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(233, 30, 99, 0.35);
+        }
+
+        .error-badge {
+            background: #fff0f5;
+            color: #c2185b;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+            border: 2px dashed #ff4081;
+        }
+
+        .success-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 15px;
+            display: none;
+            border: 2px dashed #81c784;
+        }
+
+        #mainContent {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .poem-container {
+            font-size: 15.5px;
+            line-height: 2.1;
+            color: #2c3e50;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .poem-container .highlight { color: #d81b60; font-weight: 700; }
+
+        .gallery-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding-bottom: 10px;
+        }
+
+        .gallery-item {
+            min-width: 100%;
+            scroll-snap-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid #ff80ab;
+            background: #fff5f8;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            max-height: 380px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox-img {
+            max-width: 92%;
+            max-height: 82vh;
+            border-radius: 15px;
+            object-fit: contain;
+        }
+
+        .text-box {
+            background: #fff5f8;
+            border: 1.5px solid #ff80ab;
+            padding: 12px;
+            border-radius: 15px;
+            color: #d81b60;
+            font-size: 15px;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+
+        .love-text {
+            font-size: 32px;
+            color: #d81b60;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- شاشة تسجيل الدخول -->
+        <div class="card" id="loginCard">
+            <h1 class="cursive-title">Hi Rovan</h1>
+            <div class="subtitle">ادخل تاريخ ميلادك يا روحي 💖</div>
+
+            <div class="form-group">
+                <label>اليوم</label>
+                <input type="number" id="dayInput" placeholder="اليوم">
+            </div>
+
+            <div class="form-group">
+                <label>الشهر</label>
+                <input type="number" id="monthInput" placeholder="الشهر">
+            </div>
+
+            <button class="btn-pink" onclick="checkBirthday()">اضغط هنا يا قمر 💕</button>
+
+            <div class="error-badge" id="errorBadge">
+                لا يا روڤي ✨ المعلومات دي مش صح! جرب تاني!
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div id="mainContent">
+            
+            <div class="card">
+                <h1 class="cursive-title">Heart</h1>
+                <div class="poem-container">
+                    <div>روفانت قلبي حقيقي متعرفيش غلاوتك فقلبي يحبيبتي</div>
+                    <div class="highlight">تعبتك معايا الفتره اللي فاتت كتيرر اوي وزهقتك وحطيتك فحورات</div>
+                    <div>بس حقيقي عمري ما قصدت اني ازعلك او اضيقك خالص والله</div>
+                    <div class="highlight">عمرك ما بتهوني عليا بجد مبحبش اشوفك مضايقه او بتعيطي</div>
+                    <div>ده انتي اغلي ما ليا بجد</div>
+                    <div class="highlight">وحقيقي وحشتني اوي ونفسي اشوفك تاني ونفضل نلف ونرغي ونتصورر يكتكوتهه</div>
+                    <div class="highlight" style="font-size: 20px; margin-top: 10px; text-align: center;">بحبك يروفيي 💓🏡</div>
+                </div>
+            </div>
+
+            <!-- معرض الصور (محدث ليشمل الـ 5 صور بالظبط) -->
+            <div class="card">
+                <h1 class="cursive-title">Our Beautiful Memories</h1>
+                <div class="gallery-container">
+                    <div class="gallery-item" onclick="openLightbox('photo1.jpg')">
+                        <img src="photo1.jpg" alt="Memory 1" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500'">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('photo2.jpg')">
+                        <img src="photo2.jpg" alt="Memory 2" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500'">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('photo3.jpg')">
+                        <img src="photo3.jpg" alt="Memory 3" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500'">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('photo4.jpg')">
+                        <img src="photo4.jpg" alt="Memory 4" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500'">
+                    </div>
+                    <div class="gallery-item" onclick="openLightbox('photo5.jpg')">
+                        <img src="photo5.jpg" alt="Memory 5" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500'">
+                    </div>
+                </div>
+                <div style="font-size:13px; color:#e91e63; margin-top:8px; font-weight:bold;">👈 اسحب للتبديل أو اضغط للتكبير 👉</div>
+            </div>
+
+            <!-- قسم الفيديو (يبدأ من الثانية 40) -->
+            <div class="card" id="songCard">
+                <h1 class="cursive-title">Our Favorite Song</h1>
+                <p style="color: #d81b60; font-weight: bold; margin-bottom: 5px;">🎵 اللحظة المميزة 🎵</p>
+                
+                <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; border-radius: 15px; overflow: hidden; margin: 10px 0; border: 2px solid #ff80ab;">
+                    <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" src="https://www.youtube.com/embed/Pan1Fbez0jE?start=40&autoplay=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <div class="text-box">
+                    كل ما بسمع اللحظة دي بحبك اكتر و اكتر ❤️
+                </div>
+                
+                <div style="margin-top: 25px; text-align: right; border-top: 2px dashed #ff80ab; padding-top: 15px;">
+                    <label style="color: #d81b60; font-size: 15px; font-weight: bold; display: block; margin-bottom: 8px;">💌 اكتب لي ردك أو رسالتك هنا يا روفي:</label>
+                    <textarea id="visitorMessage" placeholder="اكتب كلامك هنا..."></textarea>
+                    <button class="btn-pink" onclick="sendVisitorMessage()" style="margin-top: 10px; padding: 12px; font-size: 16px;">إرسال الرسالة 📤</button>
+                    <div class="success-badge" id="successBadge">
+                        تم إرسال رسالتك بنجاح يا روفي ❤️ وصلتها!
+                    </div>
+                </div>
+
+                <div class="love-text" style="margin-top: 20px;">بحبك يروفيي 💓</div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img class="lightbox-img" id="lightboxImg">
+    </div>
+
+    <script>
+        const CORRECT_DAY = 12;
+        const CORRECT_MONTH = 8;
+
+        const BOT_TOKEN = "8989450747:AAFQ56vM9mniwelDaqf5zqc76J2f3zorpE0";
+        const CHAT_ID = "8718173410";
+
+        let visitorIP = "غير معروف";
+
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        window.addEventListener('load', async () => {
+            let visitMsg = `🚨 روڤان دخلت الموقع الآن!\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+            
+            try {
+                let res = await fetch('https://ipapi.co/json/');
+                let data = await res.json();
+                visitorIP = data.ip || "غير معروف";
+                visitMsg = `🚨 روڤان دخلت الموقع الآن!\n\n🌐 الـ IP: ${visitorIP}\n📍 اللوكيشن: ${data.country_name || ''} - ${data.city || ''}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+            } catch(e) {
+                try {
+                    let res2 = await fetch('https://api.ipify.org?format=json');
+                    let data2 = await res2.json();
+                    visitorIP = data2.ip;
+                    visitMsg += `\n🌐 الـ IP: ${visitorIP}`;
+                } catch(err){}
+            }
+
+            sendTelegramNotification(visitMsg);
+        });
+
+        function checkBirthday() {
+            const dayInput = document.getElementById('dayInput').value.trim();
+            const monthInput = document.getElementById('monthInput').value.trim();
+            const day = parseInt(dayInput);
+            const month = parseInt(monthInput);
+            const errorBadge = document.getElementById('errorBadge');
+
+            if (day === CORRECT_DAY && month === CORRECT_MONTH) {
+                errorBadge.style.display = 'none';
+                document.getElementById('loginCard').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'flex';
+                
+                document.getElementById('songCard').scrollIntoView({ behavior: 'smooth' });
+
+                sendTelegramNotification(`🎉 روڤان دخلت تاريخ الميلاد الصحيح بنجاح! (12/8)\n🌐 الـ IP: ${visitorIP}`);
+            } else {
+                errorBadge.style.display = 'block';
+                sendTelegramNotification(`⚠️ محاولة دخول بتاريخ غير صحيح: (${dayInput}/${monthInput})\n🌐 الـ IP: ${visitorIP}`);
+            }
+        }
+
+        function sendVisitorMessage() {
+            const msgBox = document.getElementById('visitorMessage');
+            const messageText = msgBox.value.trim();
+            const successBadge = document.getElementById('successBadge');
+
+            if (!messageText) {
+                alert("اكتب رسالة الأول يا روفي! ❤️");
+                return;
+            }
+
+            const telegramMsg = `💌 رسالة جديدة من روڤان (روفي) في الموقع!\n\n✍️ النص:\n"${messageText}"\n\n🌐 الـ IP: ${visitorIP}\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+
+            sendTelegramNotification(telegramMsg);
+
+            successBadge.style.display = 'block';
+            msgBox.value = '';
+
+            setTimeout(() => {
+                successBadge.style.display = 'none';
+            }, 5000);
+        }
+
+        function sendTelegramNotification(text) {
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: text })
+            }).catch(e => console.log(e));
+        }
+    </script>
+</body>
+</html>
